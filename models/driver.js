@@ -33,18 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     money: DataTypes.INTEGER,
     point: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
-    CategoryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        notNull: {
-          msg: 'Driver license is required!'
-        },
-        notEmpty: {
-          msg: 'Driver license is required!'
-        }
-      }
-    },
+    CategoryId: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Driver',

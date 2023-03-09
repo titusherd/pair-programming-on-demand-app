@@ -21,16 +21,16 @@ class Controller {
             where: {email}
         })
         .then(user => {
-            const isValidPassword = bcrypt.compareSync(password, user.password);
-            if (!user) {
+            if(!user) {
+                console.log('wrong email');
                 const err = `Email not found`
-                return res.redirect(`/login?result=${err}`)
-            } else if (!isValidPassword) {
+                res.redirect(`/login?result=${err}`)
+            } else if (!bcrypt.compareSync(password, user.password)) {
                 const errP = `Wrong password`
-                return res.redirect(`/login?result=${errP}`)
+                res.redirect(`/login?result=${errP}`)
             } else {
                 req.session.user= {userId: user.id, role: user.role}
-                return res.redirect(`/`)
+                res.redirect(`/`)
             }
         })
         .catch(err => {
@@ -62,26 +62,56 @@ class Controller {
         // console.log(req.body);
         let {fullName, email, password, role} = req.body;
         // console.log(fullName, email, password, role);
-        User.create({
-            fullName,
-            email,
-            password,
-            role
-        })
-        .then(newUser => {
-            // res.send(newUser)
-            const result = 'Registered Successfully'
-            res.redirect(`/login?result=${result}`)
-        })
-        .catch(err => {
-            // console.log(err.name);
-            if (err.name == 'SequelizeValidationError') {
-                const errors = err.errors.map(el => el.message).toString();
-                res.redirect(`/register?error=${errors}`)
-            } else {
-                res.send(err);
-            }   
-        })
+        if (role == 'Driver') {
+            User.create({
+                fullName,
+                email,
+                password,
+                role
+            })
+            .then(newUser => {
+                if (newUser.role == 'Driver') {
+                    let {fullName, id} = newUser
+                    return Driver.create({
+                        fullName,
+                        UserId: id
+                    })
+                }
+            })
+            .then(newDriver => {
+                const result = 'Registered as Driver Successfully'
+                res.redirect(`/login?result=${result}`)
+            })
+            .catch(err => {
+                // console.log(err.name);
+                if (err.name == 'SequelizeValidationError') {
+                    const errors = err.errors.map(el => el.message).toString();
+                    res.redirect(`/register?error=${errors}`)
+                } else {
+                    res.send(err);
+                }   
+            })
+        } else {
+            User.create({
+                fullName,
+                email,
+                password,
+                role
+            })
+            .then(newUser => {
+                const result = 'Registered as Customer Successfully'
+                res.redirect(`/login?result=${result}`)
+            })
+            .catch(err => {
+                if (err.name == 'SequelizeValidationError') {
+                    const errors = err.errors.map(el => el.message).toString();
+                    res.redirect(`/register?error=${errors}`)
+                } else {
+                    res.send(err);
+                }   
+            })
+        }
+        
     }
 
 
