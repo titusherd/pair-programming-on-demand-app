@@ -18,14 +18,22 @@ module.exports = {
       money: {
         type: Sequelize.INTEGER
       },
-      price: {
+      point: {
         type: Sequelize.INTEGER
       },
       UserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id"
+        }
       },
       CategoryId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Categories",
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,

@@ -11,13 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Driver.hasOne(models.Category)
+      Driver.belongsTo(models.User, {
+        foreignKey: "UserId",
+        as: "Driver"
+      })
     }
   }
   Driver.init({
     fullName: DataTypes.STRING,
     address: DataTypes.STRING,
     money: DataTypes.INTEGER,
-    price: DataTypes.INTEGER,
+    point: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
     CategoryId: DataTypes.INTEGER
   }, {

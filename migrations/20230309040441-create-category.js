@@ -15,6 +15,9 @@ module.exports = {
       brand: {
         type: Sequelize.STRING
       },
+      modelYear: {
+        type: Sequelize.INTEGER
+      },
       categoryName: {
         type: Sequelize.STRING
       },

@@ -12,7 +12,7 @@ module.exports = {
       orderNumber: {
         type: Sequelize.INTEGER
       },
-      pickUpLocation: {
+      location: {
         type: Sequelize.STRING
       },
       orderDate: {
@@ -22,10 +22,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       DriverId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Drivers",
+          key: "id"
+        }
       },
       UserId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: "Users",
+          key: "id"
+        }
       },
       createdAt: {
         allowNull: false,

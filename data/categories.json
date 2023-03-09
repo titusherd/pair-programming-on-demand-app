@@ -1,19 +1,19 @@
 [
     {
+        "vehicleType": "Motorcylce",
         "vehicleName": "Vario",
-        "vechicleType": "Motorcylce",
         "brand": "Yamaha",
         "modelYear": "2020"
     },
     {
+        "vehicleType": "Car",
         "vehicleName": "GranMax",
-        "vechicleType": "Car",
         "brand": "Toyota",
         "modelYear": "2018"
     },
     {
+        "vehicleType": "Truck",
         "vehicleName": "Reach",
-        "vechicleType": "Truck",
         "brand": "Isuzu",
         "modelYear": "2017"
     }
