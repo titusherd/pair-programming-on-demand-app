@@ -12,19 +12,48 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Driver.belongsTo(models.Category)
-      Driver.belongsTo(models.User)
+      Driver.belongsTo(models.User, {
+      })
     }
   }
   Driver.init({
-    fullName: DataTypes.STRING,
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'name is required!'
+        },
+        notEmpty: {
+          msg: 'name is required!'
+        }
+      }
+    },
     address: DataTypes.STRING,
     money: DataTypes.INTEGER,
     point: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
-    CategoryId: DataTypes.INTEGER
+    CategoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Driver license is required!'
+        },
+        notEmpty: {
+          msg: 'Driver license is required!'
+        }
+      }
+    },
   }, {
     sequelize,
     modelName: 'Driver',
+    hooks: {
+      beforeCreate: (instance, option) => {
+        instance.money = 0;
+        instance.point = 0;
+      }
+    }
   });
   return Driver;
 };

@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "UserId",
         as: "Customer"
       })
+      //includeny jangan bentuk array di models
       Order.belongsTo(models.Driver, {
         foreignKey: "DriverId"
       })

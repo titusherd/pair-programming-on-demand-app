@@ -12,6 +12,12 @@ app.get('/login', Controller.login)
 app.get('/drivers', Controller.drivers)
 app.get('/customers', Controller.customers)
 app.get('/manager', Controller.manager)
+app.get('/drivers/add', Controller.addDriver)
+
+app.post('/drivers/add', Controller.createDriver)
+app.get('/manager/:id/delete', Controller.destroy)
+app.get('/manager/:id/edit', Controller.editDriver)
+app.post('/manager/:id/edit', Controller.updateDriver)
 // GET '/', -> home page 
 // GET '/login' -> login page
 // GET '/drivers' -> drivers page 
