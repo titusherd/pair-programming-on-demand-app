@@ -11,11 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Driver.hasOne(models.Category)
-      Driver.belongsTo(models.User, {
-        foreignKey: "UserId",
-        as: "Driver"
-      })
+      Driver.belongsTo(models.Category)
+      Driver.belongsTo(models.User)
     }
   }
   Driver.init({

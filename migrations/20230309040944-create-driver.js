@@ -12,9 +12,6 @@ module.exports = {
       fullName: {
         type: Sequelize.STRING
       },
-      address: {
-        type: Sequelize.STRING
-      },
       money: {
         type: Sequelize.INTEGER
       },
