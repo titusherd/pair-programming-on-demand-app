@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Register</h1>
+    <% if (errors) { %>
+     <% errors.forEach(el => { %>
+      <p style="color: red;"><%= el %></p>
+     <% }) %>
+    <% } %>
+    <form action="/register" method="post">
+        <label for="fullName">Full Name</label><br>
+        <input type="text" name="fullName" placeholder="insert your name here"><br>
+        <label for="email">Email</label><br>
+        <input type="text" name="email" placeholder="inser email here"><br>
+        <label for="password">Password</label><br>
+        <input type="text" name="password" placeholder="insert password here"><br>
+        <label for="role">Role</label><br>
+        <select name="role" id="role">
+            <option value="" disabled selected>Select your role</option>
+            <option value="Driver">Driver</option>
+            <option value="Customer">Customer</option>
+        </select><br><br>
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>

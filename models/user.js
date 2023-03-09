@@ -16,13 +16,72 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    fullName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    role: DataTypes.STRING
+    fullName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Email is required!'
+        },
+        notEmpty: {
+          msg: 'Email is required!'
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Email is required!'
+        },
+        notEmpty: {
+          msg: 'Email is required!'
+        },
+        isEmail: {
+          msg: 'Email is invalid!'
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Password is required!'
+        },
+        notEmpty: {
+          msg: 'Password is required!'
+        },
+        min5chars(value) {
+          if (value.length < 5) {
+            throw new Error("Password must be at least 5 characters!")
+          }
+        }
+      }
+    },
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Please select your role!'
+        },
+        notEmpty: {
+          msg: 'Please select your role!'
+        }
+      }
+    }
   }, {
     sequelize,
     modelName: 'User',
+    hooks: {
+      beforeCreate(user) {
+        var salt = bcrypt.genSaltSync(10);
+        var hash = bcrypt.hashSync(user.password, salt);
+        user.password = hash;
+      }
+    },
   });
   return User;
 };
