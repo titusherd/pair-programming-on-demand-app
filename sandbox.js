@@ -1,10 +1,7 @@
 const { Category, Driver, Order, User } = require("./models")
 
-Order.findAll({
-    include: [{
-        model: User,
-        as: "Customer"
-    }]
+User.findAll({
+    include: [Order]
 })
     .then(data => console.log(data))
 

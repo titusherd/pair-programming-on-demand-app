@@ -29,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    address: DataTypes.STRING,
     money: DataTypes.INTEGER,
     point: DataTypes.INTEGER,
     UserId: DataTypes.INTEGER,
@@ -39,6 +38,7 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Driver',
     hooks: {
       beforeCreate: (instance, option) => {
+        instance.CategoryId = 1;
         instance.money = 0;
         instance.point = 0;
       }

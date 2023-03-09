@@ -2,6 +2,7 @@ const { Driver, User, Order, Category } = require("../models")
 const formatCurrency = require("../helper/formatCurrency")
 const { Op } = require('sequelize')
 const bcrypt = require('bcryptjs');
+const easyinvoice = require('easyinvoice');
 
 
 
@@ -11,31 +12,31 @@ class Controller {
     }
 
     static loginForm(req, res) {
-        let {result} = req.query
-        res.render('login-page', {result});
+        let { result } = req.query
+        res.render('login-page', { result });
     }
 
     static login(req, res) {
-        const {email, password} = req.body
+        const { email, password } = req.body
         User.findOne({
-            where: {email}
+            where: { email }
         })
-        .then(user => {
-            if(!user) {
-                console.log('wrong email');
-                const err = `Email not found`
-                res.redirect(`/login?result=${err}`)
-            } else if (!bcrypt.compareSync(password, user.password)) {
-                const errP = `Wrong password`
-                res.redirect(`/login?result=${errP}`)
-            } else {
-                req.session.user= {userId: user.id, role: user.role}
-                res.redirect(`/`)
-            }
-        })
-        .catch(err => {
-            res.send(err);
-        })
+            .then(user => {
+                if (!user) {
+                    console.log('wrong email');
+                    const err = `Email not found`
+                    res.redirect(`/login?result=${err}`)
+                } else if (!bcrypt.compareSync(password, user.password)) {
+                    const errP = `Wrong password`
+                    res.redirect(`/login?result=${errP}`)
+                } else {
+                    req.session.user = { userId: user.id, role: user.role }
+                    res.redirect(`/`)
+                }
+            })
+            .catch(err => {
+                res.send(err);
+            })
     }
 
     static logout(req, res) {
@@ -50,17 +51,17 @@ class Controller {
     }
 
     static registerForm(req, res) {
-        let {error} = req.query;
+        let { error } = req.query;
         let errors;
-        if(error) {
+        if (error) {
             errors = error.split(",")
         }
-        res.render('registration-page', {errors});
+        res.render('registration-page', { errors });
     }
 
     static registration(req, res) {
         // console.log(req.body);
-        let {fullName, email, password, role} = req.body;
+        let { fullName, email, password, role } = req.body;
         // console.log(fullName, email, password, role);
         if (role == 'Driver') {
             User.create({
@@ -69,28 +70,28 @@ class Controller {
                 password,
                 role
             })
-            .then(newUser => {
-                if (newUser.role == 'Driver') {
-                    let {fullName, id} = newUser
-                    return Driver.create({
-                        fullName,
-                        UserId: id
-                    })
-                }
-            })
-            .then(newDriver => {
-                const result = 'Registered as Driver Successfully'
-                res.redirect(`/login?result=${result}`)
-            })
-            .catch(err => {
-                // console.log(err.name);
-                if (err.name == 'SequelizeValidationError') {
-                    const errors = err.errors.map(el => el.message).toString();
-                    res.redirect(`/register?error=${errors}`)
-                } else {
-                    res.send(err);
-                }   
-            })
+                .then(newUser => {
+                    if (newUser.role == 'Driver') {
+                        let { fullName, id } = newUser
+                        return Driver.create({
+                            fullName,
+                            UserId: id
+                        })
+                    }
+                })
+                .then(newDriver => {
+                    const result = 'Registered as Driver Successfully'
+                    res.redirect(`/login?result=${result}`)
+                })
+                .catch(err => {
+                    // console.log(err.name);
+                    if (err.name == 'SequelizeValidationError') {
+                        const errors = err.errors.map(el => el.message).toString();
+                        res.redirect(`/register?error=${errors}`)
+                    } else {
+                        res.send(err);
+                    }
+                })
         } else {
             User.create({
                 fullName,
@@ -98,25 +99,37 @@ class Controller {
                 password,
                 role
             })
-            .then(newUser => {
-                const result = 'Registered as Customer Successfully'
-                res.redirect(`/login?result=${result}`)
-            })
-            .catch(err => {
-                if (err.name == 'SequelizeValidationError') {
-                    const errors = err.errors.map(el => el.message).toString();
-                    res.redirect(`/register?error=${errors}`)
-                } else {
-                    res.send(err);
-                }   
-            })
+                .then(newUser => {
+                    const result = 'Registered as Customer Successfully'
+                    res.redirect(`/login?result=${result}`)
+                })
+                .catch(err => {
+                    if (err.name == 'SequelizeValidationError') {
+                        const errors = err.errors.map(el => el.message).toString();
+                        res.redirect(`/register?error=${errors}`)
+                    } else {
+                        res.send(err);
+                    }
+                })
         }
-        
+
     }
 
 
     static customers(req, res) {
-        res.render("customers-page")
+        let options = {
+            include: [Order]
+        }
+        // res.render("customers-page")
+        User.findAll(options)
+        .then(data => {
+            //Helper
+
+            
+            // res.send(data)
+            res.render("customers-page", { data, formatCurrency })
+        })
+        .catch(err => res.send(err))
     }
     static drivers(req, res) {
         res.render("drivers-page")
