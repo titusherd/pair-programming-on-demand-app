@@ -1,0 +1,72 @@
+[
+    {
+        "fullName": "Aurie Damarell",
+        "money": 70268,
+        "point": 181,
+        "UserId": 1,
+        "CategoryId": 1
+    },
+    {
+        "fullName": "Frederico Edmett",
+        "money": 965731,
+        "point": 94,
+        "UserId": 1,
+        "CategoryId": 2
+    },
+    {
+        "fullName": "Kippy Rawsthorn",
+        "money": 206887,
+        "point": 223,
+        "UserId": 1,
+        "CategoryId": 3
+    },
+    {
+        "fullName": "Elicia Skahill",
+        "money": 439812,
+        "point": 150,
+        "UserId": 1,
+        "CategoryId": 2
+    },
+    {
+        "fullName": "Sissy Mazzei",
+        "money": 911118,
+        "point": 58,
+        "UserId": 4,
+        "CategoryId": 3
+    },
+    {
+        "fullName": "Ava Whistlecraft",
+        "money": 599617,
+        "point": 148,
+        "UserId": 1,
+        "CategoryId": 2
+    },
+    {
+        "fullName": "Fletch Pady",
+        "money": 179528,
+        "point": 49,
+        "UserId": 1,
+        "CategoryId": 1
+    },
+    {
+        "fullName": "Mitchael Jonathon",
+        "money": 395761,
+        "point": 18,
+        "UserId": 1,
+        "CategoryId": 2
+    },
+    {
+        "fullName": "Deloris Pinckstone",
+        "money": 497630,
+        "point": 25,
+        "UserId": 1,
+        "CategoryId": 1
+    },
+    {
+        "fullName": "My Disbury",
+        "money": 131700,
+        "point": 172,
+        "UserId": 1,
+        "CategoryId": 1
+    }
+]

@@ -1,0 +1,51 @@
+[{
+    "fullName": "Shelby Tinton",
+    "email": "stinton0@cmu.edu",
+    "password": "WaCu0e97",
+    "role": "driver"
+  }, {
+    "fullName": "Janelle Munden",
+    "email": "jmunden1@example.com",
+    "password": "77KFLWK",
+    "role": "driver"
+  }, {
+    "fullName": "Joyce Eberz",
+    "email": "jeberz2@hao123.com",
+    "password": "RV3zvIA",
+    "role": "driver"
+  }, {
+    "fullName": "Cynthia Dearden",
+    "email": "cdearden3@home.pl",
+    "password": "3Bo2xVmApe",
+    "role": "driver"
+  }, {
+    "fullName": "Meredith Sloegrave",
+    "email": "msloegrave4@nhs.uk",
+    "password": "0SpLsl",
+    "role": "driver"
+  }, {
+    "fullName": "Iona Yelden",
+    "email": "iyelden5@un.org",
+    "password": "NI2YshIwY",
+    "role": "customer"
+  }, {
+    "fullName": "Richardo Plimmer",
+    "email": "rplimmer6@wired.com",
+    "password": "XiFJUm",
+    "role": "customer"
+  }, {
+    "fullName": "Farica Burree",
+    "email": "fburree7@soup.io",
+    "password": "t8tq9G",
+    "role": "customer"
+  }, {
+    "fullName": "Neile Eckels",
+    "email": "neckels8@parallels.com",
+    "password": "ObLAGfEkP",
+    "role": "customer"
+  }, {
+    "fullName": "Salvador Jalland",
+    "email": "sjalland9@businesswire.com",
+    "password": "UKoQixuT",
+    "role": "customer"
+  }]
