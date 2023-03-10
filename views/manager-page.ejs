@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Welcome Manager!</h1>
+
+    <h2>Fishery Driver List 2022</h2>
+    <a href="/"><button>Home</button></a>
+    <a href="/register"><button>Register</button></a>
+    <a href="/login"><button>Login</button></a>
+    <a href="/customers"><button>Customer</button></a>
+    <a href="/drivers"><button>Driver</button></a>
+    <a href="/manager"><button>Manager</button></a>
+    <hr>
+    <br>
+
+    Search Driver :
+    <form action="/manager" method="get">
+        <input type="text" name="search" id="">
+        <input type="submit" value="Search">
+    </form>
+    <br>
+
+    <a href="/drivers/add"><Button>Add Driver</Button></a>
+    <br><br>
+    <table border="1">
+        <thead>
+            <th>Name</th>
+            <th>Money</th>
+            <th>Point</th>
+            <th>Vehicle Type</th>
+            <th>Vehicle Name</th>
+            <th>Vehicle Brand</th>
+            <th>Vehicle Year</th>
+            <th>Action</th>
+        </thead>
+        <% data.forEach(el=> { %>
+            <tbody>
+                <td>
+                    <%= el.fullName %>
+                </td>
+                <td>
+                    <%= formatCurrency(el.money) %>
+                </td>
+                <td>
+                    <%= el.point %>
+                </td>
+                <td>
+                    <%= el.Category.vehicleType %>
+                </td>
+                <td>
+                    <%= el.Category.vehicleName %>
+                </td>
+                <td>
+                    <%= el.Category.brand %>
+                </td>
+                <td>
+                    <%= el.Category.modelYear %>
+                </td>
+                <td>
+                    <a href="/manager/<%= el.id %>/edit"><button>Edit Driver</button></a>
+                    <a href="/manager/<%= el.id %>/delete"><button>Delete</button></a>
+                </td>
+            </tbody>
+            <% }) %>
+    </table>
+
+
+</body>
+
+</html>
