@@ -7,11 +7,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/easyinvoice/dist/easyinvoice.min.js"></script>
+    <script src="https://unpkg.com/pdfjs-dist/build/pdf.min.js"></script>
+    <script src="https://unpkg.com/pdfjs-dist/build/pdf.worker.min.js"></script>
 </head>
 
 <body>
     <h1>Welcome <%= data[0].fullName %>!</h1>
-    </p>Member since <%= data[0].createdAt %>
+    </p>Member since <%= data[0].getFormatDate() %>
         <hr>
         <a href="/"><button>Home</button></a>
         <a href="/register"><button>Register</button></a>
@@ -42,7 +44,7 @@
                         <%=formatCurrency(element.totalPrice) %>
                     </td>
                     <td>
-                        <%=element.createdAt %>
+                        <%=element.getFormatDate() %>
                     </td>
                 </tbody>
                 <% }) %>
@@ -54,6 +56,7 @@
         <br><br>
 
         <body>
+            <button onclick="checkdata()">Check Data</button>
             <button onclick="createInvoice()">Create Invoice</button>
             <button onclick="downloadInvoice()">Download Invoice</button>
             <button onclick="renderInvoice()">Render Invoice</button>
@@ -64,8 +67,9 @@
         </body>
         <script>
             // Create your invoice! Easy!
-            
-            console.log(data[0].fullName);
+            const checkdata = (data) => {
+                console.log(data);
+            }
 
             function createInvoice() {
                 var data = getSampleData();
@@ -104,8 +108,8 @@
                         // "custom3": "custom value 3"
                     },
                     client: {
-                        company: 'ADADA',
-                        address: 'Clientstreet 456',
+                        company: 'Salvador Jalland!',
+                        address: '7885 Gerald Pass',
                         zip: '4567 CD',
                         city: 'Clientcity',
                         country: 'Clientcountry'
@@ -167,6 +171,14 @@
                     //     "total": "Totaal"
                     // },
                 };
+            }
+
+            function renderInvoice() {
+                var data = getSampleData();
+                document.getElementById("pdf").innerHTML = "loading...";
+                easyinvoice.createInvoice(data, function (result) {
+                    easyinvoice.render('pdf', result.pdf);
+                });
             }
 
             // var data = {};

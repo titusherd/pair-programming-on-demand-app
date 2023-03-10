@@ -13,7 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasOne(models.Driver)
-      User.hasMany(models.Order) 
+      User.hasMany(models.Order)
+    }
+    getFormatDate() {
+      // const event = new Date(Date.UTC(2012, 11, 20, 3, 0, 0));
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+      return this.createdAt.toLocaleDateString(["en-US"], options);
     }
   }
   User.init({

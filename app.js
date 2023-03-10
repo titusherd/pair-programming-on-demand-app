@@ -8,7 +8,7 @@ const Controller = require("./controllers")
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }));
 
-app.get('/customers', Controller.customers)
+
 
 
 app.use(session({
@@ -36,7 +36,7 @@ const isDriver = function (req, res, next) {
     if (!req.session.user) {
         const err = 'Please log in first';
         res.redirect(`/login?result=${err}`)
-    } else if (!req.session.user.userId || req.session.user.role != 'Driver') {
+    } else if (!req.session.user.userId || req.session.user.role === 'Customer') {
         const err = 'No access';
         res.redirect(`/login?result=${err}`)
     } else {
@@ -58,16 +58,19 @@ app.post('/register', Controller.registration)
 // butuh login untuk access
 app.use(isLoggedIn)
 
-// app.get('/customers', Controller.customers)
+app.get('/customers', Controller.customers)
 app.get('/logout', Controller.logout)
 
 // butuh role driver untuk access
+
+
 app.use(isDriver)
 
 app.get('/drivers', Controller.drivers)
 
 app.get('/manager', Controller.manager)
 app.get('/drivers/add', Controller.addDriver)
+app.post('/drivers/add', Controller.createDriver)
 app.get('/manager/:id/delete', Controller.destroy)
 app.get('/manager/:id/edit', Controller.editDriver)
 app.post('/manager/:id/edit', Controller.updateDriver)

@@ -122,14 +122,12 @@ class Controller {
         }
         // res.render("customers-page")
         User.findAll(options)
-        .then(data => {
-            //Helper
-
-            
-            // res.send(data)
-            res.render("customers-page", { data, formatCurrency })
-        })
-        .catch(err => res.send(err))
+            .then(data => {
+                //Helper
+                // res.send(data)
+                res.render("customers-page", { data, formatCurrency })
+            })
+            .catch(err => res.send(err))
     }
     static drivers(req, res) {
         res.render("drivers-page")
@@ -168,7 +166,7 @@ class Controller {
     static createDriver(req, res) {
         // res.render("")
         const { fullName, CategoryId } = req.body
-
+        
         Driver.create({ fullName, CategoryId })
             .then(() => res.redirect("/manager"))
             .catch(err => {
@@ -176,7 +174,7 @@ class Controller {
                     const errMsg = err.errors.map(el => {
                         return el.message
                     })
-                    console.log(errMsg);
+                    // console.log(errMsg);
                     res.redirect(`/drivers/add?errors=${errMsg}`)
                 } else {
                     res.send(err)
